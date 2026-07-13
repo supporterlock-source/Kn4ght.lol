@@ -1,21 +1,3 @@
-// reCAPTCHA Variables
-let recaptchaToken = null;
-let recaptchaVerified = false;
-
-// reCAPTCHA Callback - Success
-function onRecaptchaSuccess(token) {
-    recaptchaToken = token;
-    recaptchaVerified = true;
-    console.log('✅ reCAPTCHA verified:', token.substring(0, 20) + '...');
-}
-
-// reCAPTCHA Callback - Expired
-function onRecaptchaExpired() {
-    recaptchaVerified = false;
-    recaptchaToken = null;
-    console.log('⚠️ reCAPTCHA token expired');
-}
-
 // CORS Proxy URLs
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
 const BYPASS_API = 'http://fi8.bot-hosting.net:21163/freeapibypass';
@@ -41,7 +23,8 @@ async function bypassLink() {
     }
 
     // Check reCAPTCHA verification
-    if (!recaptchaVerified || !recaptchaToken) {
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
         errorDiv.style.display = 'block';
         document.getElementById('errorMessage').textContent = '❌ Please complete the reCAPTCHA verification first';
         return;
@@ -84,8 +67,6 @@ async function bypassLink() {
             
             // Reset reCAPTCHA for next use
             grecaptcha.reset();
-            recaptchaVerified = false;
-            recaptchaToken = null;
         } else {
             throw new Error(data.message || 'Could not bypass this link');
         }
