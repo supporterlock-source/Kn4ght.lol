@@ -1,3 +1,26 @@
+// reCAPTCHA Variables
+let recaptchaToken = null;
+let recaptchaVerified = false;
+
+// reCAPTCHA Callback - Success
+function onRecaptchaSuccess(token) {
+    recaptchaToken = token;
+    recaptchaVerified = true;
+    console.log('✅ reCAPTCHA verified:', token.substring(0, 20) + '...');
+}
+
+// reCAPTCHA Callback - Expired
+function onRecaptchaExpired() {
+    recaptchaVerified = false;
+    recaptchaToken = null;
+    console.log('⚠️ reCAPTCHA token expired');
+}
+
+// CORS Proxy URLs
+const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+const BYPASS_API = 'http://fi8.bot-hosting.net:21163/freeapibypass';
+const SERVICES_API = 'http://fi8.bot-hosting.net:21163/supported';
+
 // Bypass Link Function
 async function bypassLink() {
     const urlInput = document.getElementById('urlInput').value.trim();
@@ -10,9 +33,17 @@ async function bypassLink() {
     errorDiv.style.display = 'none';
     loadingDiv.style.display = 'none';
 
+    // Check if URL is provided
     if (!urlInput) {
         errorDiv.style.display = 'block';
         document.getElementById('errorMessage').textContent = '❌ Please enter a valid URL';
+        return;
+    }
+
+    // Check reCAPTCHA verification
+    if (!recaptchaVerified || !recaptchaToken) {
+        errorDiv.style.display = 'block';
+        document.getElementById('errorMessage').textContent = '❌ Please complete the reCAPTCHA verification first';
         return;
     }
 
@@ -20,9 +51,25 @@ async function bypassLink() {
     loadingDiv.style.display = 'block';
 
     try {
-        const bypassURL = `http://fi8.bot-hosting.net:21163/freeapibypass?url=${encodeURIComponent(urlInput)}`;
-        const response = await fetch(bypassURL);
-        
+        // First, try without CORS proxy
+        let response = await fetch(`${BYPASS_API}?url=${encodeURIComponent(urlInput)}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        // If CORS error, try with proxy
+        if (!response.ok && response.status === 0) {
+            console.log('Trying with CORS proxy...');
+            response = await fetch(`${CORS_PROXY}${BYPASS_API}?url=${encodeURIComponent(urlInput)}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+        }
+
         if (!response.ok) {
             throw new Error('Failed to bypass link');
         }
@@ -34,6 +81,11 @@ async function bypassLink() {
             resultDiv.style.display = 'block';
             document.getElementById('resultURL').value = data.bypass_url;
             document.getElementById('resultMessage').textContent = '✅ Successfully bypassed! Copy the link above.';
+            
+            // Reset reCAPTCHA for next use
+            grecaptcha.reset();
+            recaptchaVerified = false;
+            recaptchaToken = null;
         } else {
             throw new Error(data.message || 'Could not bypass this link');
         }
@@ -41,6 +93,7 @@ async function bypassLink() {
         loadingDiv.style.display = 'none';
         errorDiv.style.display = 'block';
         document.getElementById('errorMessage').textContent = `❌ Error: ${error.message}`;
+        console.error('Bypass error:', error);
     }
 }
 
@@ -64,7 +117,25 @@ async function loadSupportedServices() {
     const servicesList = document.getElementById('servicesList');
     
     try {
-        const response = await fetch('http://fi8.bot-hosting.net:21163/supported');
+        // Try direct fetch first
+        let response = await fetch(SERVICES_API, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        // If CORS error, try with proxy
+        if (!response.ok && response.status === 0) {
+            console.log('Trying services with CORS proxy...');
+            response = await fetch(`${CORS_PROXY}${SERVICES_API}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+        }
+
         const data = await response.json();
         
         if (data.supported && Array.isArray(data.supported)) {
@@ -82,33 +153,37 @@ async function loadSupportedServices() {
             servicesList.innerHTML = '<div class="service-card"><h3>Services Loading...</h3><p>Services are being loaded</p></div>';
         }
     } catch (error) {
+        console.error('Services error:', error);
         servicesList.innerHTML = '<div class="service-card" style="grid-column: 1/-1;"><h3>⚠️ Unable to Load</h3><p>Could not fetch supported services</p></div>';
     }
 }
 
 // Allow Enter key to trigger bypass
-document.getElementById('urlInput').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        bypassLink();
+document.addEventListener('DOMContentLoaded', function() {
+    const urlInput = document.getElementById('urlInput');
+    if (urlInput) {
+        urlInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                bypassLink();
+            }
+        });
     }
-});
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
-});
 
-// Load services when page loads
-window.addEventListener('load', function() {
+    // Load services when page loads
     loadSupportedServices();
 });
 
