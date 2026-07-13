@@ -3,81 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kn4ght Bot - Discord Bot</title>
+    <title>Kn4ght Bypass - Link Bypass Tool</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <h1 class="logo">⚔️ Kn4ght Bot</h1>
+            <h1 class="logo">⚔️ Kn4ght Bypass</h1>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#invite">Invite</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#bypass">Bypass</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#terms">Terms</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- HOME SECTION -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h2>Welcome to Kn4ght Bot</h2>
-                <p>The ultimate Discord bot for your server</p>
-                <a href="#invite" class="btn btn-primary">Add Bot Now</a>
+                <h2>Kn4ght Bypass</h2>
+                <p>Skip link shorteners and get direct access instantly</p>
+                <a href="#bypass" class="btn btn-primary">Start Bypassing Now</a>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <!-- BYPASS SECTION -->
+    <section id="bypass" class="bypass-section">
         <div class="container">
-            <h2>Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>🎯 Moderation</h3>
-                    <p>Advanced moderation tools to keep your server safe and clean</p>
+            <h2>Bypass Links</h2>
+            <p>Paste your shortened link below to get the direct URL</p>
+            
+            <div class="bypass-tool">
+                <div class="input-group">
+                    <input type="text" id="urlInput" class="url-input" placeholder="Paste your link here (e.g., bit.ly/xxx, tinyurl.com/xxx)" />
+                    <button class="btn btn-primary" onclick="bypassLink()">Bypass Link</button>
                 </div>
-                <div class="feature-card">
-                    <h3>🎵 Music</h3>
-                    <p>Play your favorite songs and control playback with ease</p>
+                
+                <div id="result" class="result-box" style="display: none;">
+                    <div class="result-content">
+                        <h3>✅ Bypassed Link:</h3>
+                        <div class="result-link">
+                            <input type="text" id="resultURL" class="result-input" readonly />
+                            <button class="btn btn-copy" onclick="copyToClipboard()">Copy</button>
+                        </div>
+                        <p id="resultMessage" class="result-message"></p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h3>🎮 Games</h3>
-                    <p>Fun interactive games to engage your community</p>
+                
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Processing your link...</p>
                 </div>
-                <div class="feature-card">
-                    <h3>📊 Analytics</h3>
-                    <p>Track server statistics and member activity</p>
+                
+                <div id="error" class="error-box" style="display: none;">
+                    <p id="errorMessage"></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="invite" class="invite-section">
+    <!-- SERVICES SECTION -->
+    <section id="services" class="services-section">
         <div class="container">
-            <h2>Ready to Enhance Your Server?</h2>
-            <p>Click the button below to invite Kn4ght Bot to your Discord server</p>
-            <a href="https://discord.com/api/oauth2/authorize?client_id=1526044186242060429&permissions=93184&scope=bot%20applications.commands" class="btn btn-invite" target="_blank">
-                <span class="discord-icon">🎮</span>
-                Add Kn4ght Bot to Discord
-            </a>
-            <p class="invite-note">No spam, no ads - just pure functionality</p>
+            <h2>Supported Services</h2>
+            <p>These link shorteners and services are supported:</p>
+            
+            <div id="servicesList" class="services-grid">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading supported services...</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
+    <!-- PRIVACY POLICY SECTION -->
+    <section id="privacy" class="policy-section">
         <div class="container">
-            <h2>Need Help?</h2>
-            <p>Have questions or suggestions? Reach out to us:</p>
-            <div class="contact-links">
-                <a href="https://discord.gg/GCdhawTytf" class="contact-btn">Join Discord Server</a>
-                <a href="mailto:support@kn4ght.lol" class="contact-btn">Email Support</a>
+            <h2>Privacy Policy</h2>
+            <div class="policy-content">
+                <h3>1. Information We Collect</h3>
+                <p>When you use Kn4ght Bypass, we may collect:</p>
+                <ul>
+                    <li>URLs you submit for bypassing</li>
+                    <li>IP address and browser information</li>
+                    <li>Usage analytics and statistics</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>We use the collected information to:</p>
+                <ul>
+                    <li>Process your bypass requests</li>
+                    <li>Improve our service</li>
+                    <li>Monitor and prevent abuse</li>
+                    <li>Generate usage statistics</li>
+                </ul>
+
+                <h3>3. Data Security</h3>
+                <p>We implement industry-standard security measures to protect your data. However, no method of transmission over the internet is 100% secure.</p>
+
+                <h3>4. Third-Party Services</h3>
+                <p>We use third-party APIs to bypass links. Your URLs may be sent to external services for processing.</p>
+
+                <h3>5. Cookies</h3>
+                <p>We may use cookies to enhance your experience. You can disable cookies in your browser settings.</p>
+
+                <h3>6. Changes to Privacy Policy</h3>
+                <p>We reserve the right to update this privacy policy at any time. Changes will be posted on this page.</p>
+
+                <h3>7. Contact Us</h3>
+                <p>For privacy concerns, contact us at: <strong>support@kn4ght.lol</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERMS OF SERVICE SECTION -->
+    <section id="terms" class="policy-section">
+        <div class="container">
+            <h2>Terms of Service</h2>
+            <div class="policy-content">
+                <h3>1. Acceptance of Terms</h3>
+                <p>By using Kn4ght Bypass, you agree to these terms and conditions. If you do not agree, please do not use our service.</p>
+
+                <h3>2. Use License</h3>
+                <p>Permission is granted to use Kn4ght Bypass for legitimate purposes only. You agree not to:</p>
+                <ul>
+                    <li>Use the service for illegal activities</li>
+                    <li>Bypass security measures maliciously</li>
+                    <li>Spam or abuse the service</li>
+                    <li>Attempt to hack or disrupt the service</li>
+                </ul>
+
+                <h3>3. Disclaimer of Warranties</h3>
+                <p>Kn4ght Bypass is provided "as is" without warranties of any kind. We do not guarantee:</p>
+                <ul>
+                    <li>Uninterrupted service availability</li>
+                    <li>Accuracy of bypassed content</li>
+                    <li>Safety of external links</li>
+                </ul>
+
+                <h3>4. Limitation of Liability</h3>
+                <p>Kn4ght Bypass shall not be liable for any damages resulting from your use of the service, including direct, indirect, or consequential damages.</p>
+
+                <h3>5. User Responsibilities</h3>
+                <p>You are responsible for:</p>
+                <ul>
+                    <li>Providing accurate information</li>
+                    <li>Ensuring your use complies with applicable laws</li>
+                    <li>Your interactions with external websites</li>
+                </ul>
+
+                <h3>6. Intellectual Property</h3>
+                <p>All content on Kn4ght Bypass is the property of Kn4ght or its content suppliers and is protected by international copyright laws.</p>
+
+                <h3>7. Termination</h3>
+                <p>We reserve the right to terminate or suspend access to our service at any time for violations of these terms.</p>
+
+                <h3>8. Governing Law</h3>
+                <p>These terms and conditions are governed by applicable international law.</p>
+
+                <h3>9. Changes to Terms</h3>
+                <p>We reserve the right to modify these terms at any time. Continued use of the service implies acceptance of changes.</p>
+
+                <h3>10. Contact</h3>
+                <p>For questions about these terms, contact: <strong>support@kn4ght.lol</strong></p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Kn4ght Bot. All rights reserved.</p>
+        <p>&copy; 2026 Kn4ght Bypass. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
     </footer>
 
     <script src="script.js"></script>

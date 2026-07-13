@@ -1,60 +1,65 @@
-# 🎮 Kn4ght Bot - Discord Bot Website
+# ⚔️ Kn4ght Bypass - Link Bypass Tool
 
-Welcome to the official website for **Kn4ght Bot**! This is a beautiful, modern website showcasing your Discord bot with easy bot invite functionality.
+Welcome to **Kn4ght Bypass**! A fast and reliable tool to bypass link shorteners and get direct access to content.
 
 ## Features
 
-✨ **Modern Design**
+✨ **Fast Bypass Processing**
+- Instantly bypass shortened links
+- Support for multiple services
+- One-click copy functionality
+
+🔗 **Supported Services**
+- Displays all supported link shorteners
+- Real-time service list loading
+- Easy to use interface
+
+📱 **Responsive Design**
+- Works on all devices
 - Dark Discord-themed UI
-- Smooth animations and transitions
-- Fully responsive (works on mobile, tablet, desktop)
-- Professional color scheme
+- Smooth animations
 
-🔗 **Discord Bot Integration**
-- Direct bot invite button
-- Pre-configured with permissions
-- One-click add to server
+⚖️ **Legal Protection**
+- Complete Privacy Policy
+- Terms of Service included
+- Comprehensive legal documentation
 
-📱 **Responsive Layout**
-- Auto-adjusts for all screen sizes
-- Mobile-friendly navigation
-- Touch-friendly buttons
+## How to Use
 
-🎨 **Customizable**
-- Easy to modify colors and text
-- Add your own features section
-- Update bot invite link anytime
+1. **Paste your link** - Enter any shortened URL (bit.ly, tinyurl, etc.)
+2. **Click Bypass** - Wait for processing
+3. **Copy result** - Get your direct link instantly
 
-## Bot Invite Link
+## API Endpoints
 
-Your bot invite URL:
+### Bypass Endpoint
 ```
-https://discord.com/api/oauth2/authorize?client_id=1526044186242060429&permissions=93184&scope=bot%20applications.commands
+GET http://fi8.bot-hosting.net:21163/freeapibypass?url={encoded_url}
 ```
 
-**Permissions Included:**
-- Manage messages
-- Manage roles
-- Kick members
-- Ban members
-- And more...
-
-## How to Customize
-
-### Change Bot Name
-Edit `index.html` and replace "Kn4ght Bot" with your bot name in:
-- The `<title>` tag
-- The `.logo` section
-- Hero section headings
-
-### Update Bot Invite Link
-Find this URL in `index.html` and replace with your own:
-```html
-https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=93184&scope=bot%20applications.commands
+### Supported Services
 ```
+GET http://fi8.bot-hosting.net:21163/supported
+```
+
+## File Structure
+
+```
+Kn4ght.lol/
+├── index.html          # Main website
+├── style.css           # Styling
+├── script.js           # Functionality
+├── CNAME               # Custom domain
+└── README.md           # This file
+```
+
+## Customization
+
+### Change Service Name
+Edit `index.html` - Replace "Kn4ght Bypass" with your desired name
 
 ### Modify Colors
-Edit `style.css` CSS variables at the top:
+Edit `style.css` CSS variables:
 ```css
 :root {
     --primary-color: #5865F2;      /* Discord Blue */
@@ -63,40 +68,28 @@ Edit `style.css` CSS variables at the top:
 }
 ```
 
-### Add Your Discord Server Link
-In `index.html`, update:
-```html
-<a href="https://discord.gg/your-server-invite">Join Discord Server</a>
-```
+### Update API Endpoints
+Edit `script.js`:
+- Line 30: Bypass API endpoint
+- Line 49: Supported services endpoint
 
-### Update Contact Email
-Change the email in the contact section:
-```html
-<a href="mailto:your-email@example.com">Email Support</a>
-```
+## Legal Documents
 
-## File Structure
-
-```
-Kn4ght.lol/
-├── index.html          # Main website
-├── style.css           # Styling and animations
-├── script.js           # Interactive features
-└── README.md           # This file
-```
+✅ **Privacy Policy** - Full data handling disclosure
+✅ **Terms of Service** - User agreement and limitations
+✅ **Footer Links** - Easy access to legal documents
 
 ## Deployment
 
-### Option 1: GitHub Pages (Free)
-1. Go to repository Settings
-2. Scroll to "GitHub Pages"
-3. Set source to `main` branch
-4. Your site will be live at: `https://supporterlock-source.github.io/Kn4ght.lol/`
+### GitHub Pages
+1. Settings → Pages
+2. Select `main` branch
+3. Your site: `https://supporterlock-source.github.io/Kn4ght.lol/`
 
-### Option 2: Custom Domain
-1. Create a `CNAME` file with your domain
-2. Update DNS records pointing to GitHub Pages
-3. Configure in repository settings
+### Custom Domain (kn4ght.lol)
+1. DNS A Records point to GitHub Pages IPs
+2. CNAME file already configured
+3. Wait for DNS propagation (24-48 hours)
 
 ## Browser Support
 
@@ -106,24 +99,10 @@ Kn4ght.lol/
 ✅ Edge (latest)
 ✅ Mobile browsers
 
-## Features Explained
+## Disclaimer
 
-**Moderation** - Tools to keep your server safe
-**Music** - Play songs and control playback
-**Games** - Fun interactive games for your community
-**Analytics** - Track server stats and activity
-
-## Support
-
-For issues or questions:
-- Join the Discord server
-- Send an email to support
-- Check GitHub Issues
-
-## License
-
-This project is open source and available for modification.
+This tool is provided for educational and legitimate purposes. Users are responsible for complying with applicable laws and terms of service of linked websites.
 
 ---
 
-**Made with ❤️ for the Discord community**
+**Made with ❤️ by Kn4ght**
